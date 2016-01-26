@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\n\nshinyUI(fluidPage(\n  titlePanel(h1(\"Music data visualization\",align=\"center\")),\n  \n  sidebarLayout(\n    sidebarPanel( h2(\"Input\"),\n                  sliderInput(\"start_end_year\",\"Years\",min=1980,max=2016,value = c(1990,2004)),\n                  textInput(\"artist\", label = \"Artist Name\",value = \"\"),\n                  textInput(\"genre\", label = \"Genre\",value = \"\"),\n                  textInput(\"style\", label = \"Style\",value = \"\")\n                  ),\n    \n    \n    mainPanel(h2(\"main panel\"),\n              textOutput(\"text1\"))\n  )\n))",
+    "created" : 1452418631365.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2046456678",
+    "id" : "353F89FC",
+    "lastKnownWriteTime" : 1452424832,
+    "path" : "C:/Users/mukul.chaware13/Desktop/N/Music API/Music data visualization/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

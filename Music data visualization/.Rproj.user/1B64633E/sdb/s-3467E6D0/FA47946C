@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\n\nshinyServer(function(input, output) {\n\noutput$text1=renderText({\n  \n  paste(\"years from \",input$range[1],\" to \",input$range[2])\n})\n    \n})",
+    "created" : 1452418631769.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "312626686",
+    "id" : "FA47946C",
+    "lastKnownWriteTime" : 1452422312,
+    "path" : "C:/Users/mukul.chaware13/Desktop/N/Music API/Music data visualization/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
