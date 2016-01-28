@@ -1,0 +1,17 @@
+{
+    "contents" : "library(ROpenWeatherMap)\nlibrary(googleVis)\nlibrary(rMaps)\nlibrary(ggmap)\n###23.2500 N, 77.4170 E\n\nsetwd(\"C:/Users/mukul.chaware13/Desktop/N/Weather API/\")\n\napi_key=\"e7cf48e2e1b1accf2a3b9229b5e30589\"\nstates=c(\"Andhra Pradesh\"\n,\"Arunachal Pradesh\"\n,\"Assam\"\n,\"Bihar\"\n,\"Chhattisgarh\"\n,\"Goa\"\n,\"Gujarat\"\n,\"Haryana\"\n,\"Himachal Pradesh\"\n,\"Jammu and Kashmir\"\n,\"Jharkhand\"\n,\"Karnataka\"\n,\"Kerala\"\n,\"Madhya Pradesh\"\n,\"Maharashtra\"\n,\"Manipur\"\n,\"Meghalaya\"\n,\"Mizoram\"\n,\"Nagaland\"\n,\"Odisha\"\n,\"Punjab\"\n,\"Rajasthan\"\n,\"Sikkim\"\n,\"Tamil Nadu\"\n,\"Tripura\"\n,\"Uttar Pradesh\"\n,\"Uttarakhand\"\n,\"West Bengal\"\n,\"Andaman and Nicobar Islands\"\n,\"Chandigarh\"\n,\"Dadra and Nagar Haveli\",\"Daman and Diu\",\"National Capital Territory of Delhi\" ,\"Lakshadweep\" ,\"Pondicherry\") \n\n\nget_temp =function()\n{\n  len=length(states)\n  \n  data=get_current_weather(api_key,city=states[1])\n  temp=data$main$temp\n  \n  for(i in 2:len)\n  {\n    data=get_current_weather(api_key,city=states[i])\n    temp=c(temp,data$main$temp)\n  }\n  temp\n}\n\nlive_weather_1=function()\n{\n  for(i in 1:3)\n  {    \n  temp=get_temp()\n  temp=trunc(temp*100)/100\n  d=cbind(states,temp)\n  d=as.data.frame(d)\n  G3 = gvisGeoChart(d, \n                    locationvar = \"states\", \n                    colorvar = \"temp\",\n                    options=list(region=\"IN\", \n                                 displayMode=\"regions\", \n                                 resolution=\"provinces\",\n                                 width=800,height=600),chartid = 1)\n  print(1)\n  Tbl <- gvisTable(d, options=list(height=300), \n                   formats=list(temp=\"#,###.0\"))\n  plot(gvisMerge(G3, Tbl, horizontal=F))\n  Sys.sleep(20)\n  }\n}\n\nlive_weather_2=function()\n{\nstates_coord=geocode(states)\n#temp=get_temp()\n#temp=temp-273\n\nfor(i in 1:5)\n{\n  print(i)\n  temp=get_temp()\n  temp=temp-273\n  temp=trunc(temp*100)/100\n  data=as.data.frame(cbind(states_coord,temp))\n  m=leaflet(data) %>% setView(77.41,23.25,zoom=5) %>% addTiles()\n  m=m %>% addMarkers(~lon,~lat,popup=paste(\"<b>\",temp,\"</b>\",sep=\"\"))\n  print(m)\n  Sys.sleep(20)\n}\n}\n\n  data=NULL\n  len=length(states)\n  for(i in 1:len)\n  {\n    d=get_weather_forecast(api_key,city=states[i])$list\n    data=rbind(data,cbind(d$dt_txt,d$main$temp,states[i]))\n    data=as.data.frame(data)\n  #  colnames(data)=c(\"time\",\"temp\",\"state\")\n  } \n  ###############################################################################\n  \n  datm2 <- transform(data,\n                     State = state.abb[match(as.character(state), state.name)],\n                     fillKey = cut(temp, quantile(temp, seq(0, 1, 1/5)), labels = LETTERS[1:5]),\n                     time = as.numeric(time)\n  )\n  \n  \n  us_states=read.table(\"us_states.txt\")\n  us_states=us_states$V1\n  states=us_states\n  states=as.character(states)\n  data$temp=as.numeric(data$temp)",
+    "created" : 1453969808263.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "741930467",
+    "id" : "C4A59DE",
+    "lastKnownWriteTime" : 1453977730,
+    "path" : "C:/Users/mukul.chaware13/Desktop/N/Weather API/Weather visualization.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

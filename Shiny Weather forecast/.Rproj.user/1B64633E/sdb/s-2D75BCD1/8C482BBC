@@ -1,0 +1,17 @@
+{
+    "contents" : "\nlibrary(googleVis)\nlibrary(shiny)\n\ng=list('Temperature'='temp','Minimum Temperature'='temp_min','Maximum temperature'='temp_max','Pressure'='pressure','Sea Level'='sea_level','Ground level'='grnd_level','Humidity'='humidity')\n\nshinyUI(fluidPage(\n\n  # Application title\n  titlePanel(\"Weather forecast using ROpenWeatherMap\"),\n\n  \n  sidebarLayout(\n    sidebarPanel(\n      sliderInput(\"time\",\n                  h3(\"Forecast\"),\n                  min = 1,\n                  max = 37,\n                  value = 1,animate =  animationOptions(interval = 4000,\n                                                        playButton = icon('play', \"fa-3x\"),\n                                                        pauseButton = icon('pause', \"fa-3x\"))),\n      selectInput(\"feature\", label = h3(\"Feature\"), \n                  choices = list(g=g), selected = 1)          \n    ),\n\n    \n    mainPanel(\n    htmlOutput(\"gvis\")\n    )\n  )\n))\n",
+    "created" : 1453969217120.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "139078112",
+    "id" : "8C482BBC",
+    "lastKnownWriteTime" : 1453973593,
+    "path" : "C:/Users/mukul.chaware13/Desktop/N/Weather API/Shiny Weather forecast/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

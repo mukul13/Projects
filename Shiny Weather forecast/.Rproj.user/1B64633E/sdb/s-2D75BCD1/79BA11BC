@@ -1,0 +1,17 @@
+{
+    "contents" : "library(ROpenWeatherMap)\nlibrary(shiny)\n\nstates=c(\"Andhra Pradesh\"\n         ,\"Arunachal Pradesh\"\n         ,\"Assam\"\n         ,\"Bihar\"\n         ,\"Chhattisgarh\"\n         ,\"Goa\"\n         ,\"Gujarat\"\n         ,\"Haryana\"\n         ,\"Himachal Pradesh\"\n         ,\"Jammu and Kashmir\"\n         ,\"Jharkhand\"\n         ,\"Karnataka\"\n         ,\"Kerala\"\n         ,\"Madhya Pradesh\"\n         ,\"Maharashtra\"\n         ,\"Manipur\"\n         ,\"Meghalaya\"\n         ,\"Mizoram\"\n         ,\"Nagaland\"\n         ,\"Odisha\"\n         ,\"Punjab\"\n         ,\"Rajasthan\"\n         ,\"Sikkim\"\n         ,\"Tamil Nadu\"\n         ,\"Tripura\"\n         ,\"Uttar Pradesh\"\n         ,\"Uttarakhand\"\n         ,\"West Bengal\"\n         ,\"Andaman and Nicobar Islands\"\n         ,\"Chandigarh\"\n         ,\"Nepal\"\n         ,\"Bhutan\"\n         ,\"Bangladesh\"\n         ,\"Dadra and Nagar Haveli\",\"Daman and Diu\",\"National Capital Territory of Delhi\" ,\"Lakshadweep\" ,\"Pondicherry\") \nlen=length(states)\n\ndata=NULL\nfor(i in 1:len)\n{\n  print(i)\n  temp=get_weather_forecast(api_key,city=states[i])\n  temp=temp$list$main\n  temp$state=states[i]\n  temp$index=1:nrow(temp)\n  data=as.data.frame(rbind(data,temp))\n}\nd=gsub(\"Odisha\",\"Orissa\",data$state)\nd=gsub(\"National Capital Territory of Delhi\",\"Delhi\",d)\nd=gsub(\"Uttarakhand\",\"Uttaranchal\",d)\ndata$state=d\ndata$state=as.character(data$state)\n\nshinyServer(function(input, output) {\n\n  output$gvis = renderGvis({\n    d1=subset(data,index==input$time)\n    #print(\"processing\")\n    \n #   gvisGeoChart(d1,\n  #               locationvar=\"state\", colorvar=\"temp\",\n  #               options=list(region=\"IN\", displayMode=\"regions\", \n   #                           resolution=\"provinces\",\n    #                          width=500, height=400,\n     #                         colorAxis=\"{colors:['#FFFFFF', '#0000FF']}\"\n      #           ))\n\n      G3= gvisGeoChart(d1, \n                      locationvar = \"state\", \n                      colorvar = input$feature,\n                      options=list(region=\"IN\", \n                                   displayMode=\"regions\", \n                                   resolution=\"provinces\",\n                                   width=500,height=400))\n      Tbl <- gvisTable(d1[,c('state',input$feature)], options=list(height=300), \n                       formats=list(temp=\"#,###.0\"))\n      gvisMerge(G3, Tbl, horizontal=T)\n  })\n  \n\n})\n",
+    "created" : 1453969217756.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1821824251",
+    "id" : "79BA11BC",
+    "lastKnownWriteTime" : 1453978022,
+    "path" : "C:/Users/mukul.chaware13/Desktop/N/Weather API/Shiny Weather forecast/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

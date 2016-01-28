@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\nlibrary(REchoNest)\nlibrary(leaflet)\nlibrary(ggmap)\nlibrary(twitteR)\nlibrary(wordcloud)\nlibrary(ROAuth)\n\nrequestURL=\"https://api.twitter.csom/oauth/request_token\"\naccessURL=\"https://api.twitter.com/oauth/access_token\"\nauthURL=\"https://api.twitter.com/oauth/authorize\"\nconsumerKey=\"jOP91eLqcrlxprYCMgH9AeWd4\"\nconsumerSecret=\"DSGBixATCwwVZy7RoUuDjqh7z82vMFfhWlJ4zV5d5sbCbnHlk7\"\naccessToken=\"3369300031-RUeCuOUSZoIgCuoxzxOxWXf9ik608RKbnGZCVsL\"\naccessSecret=\"acwuhSqWanZlOrNGBNmu1WEKnHS3pRBGN3U4XyaXcvdJZ\"\n\n## to make connections\noptions(httr_oauth_cache=T)\nsetup_twitter_oauth(consumerKey,consumerSecret,accessToken,accessSecret)\nprint(\"Authentication done\")\n\napi_key=\"OHOMFXRMEYVS3MHKW\"\ng=read.csv(\"C:/Users/mukul.chaware13/Desktop/N/Music API/Music data visualization/data/genre.csv\",stringsAsFactors = F)\ng=g$x\n\nshinyUI(navbarPage(\"REchoNest!\",\ntabPanel(\"Genre\",  \n  sidebarLayout(\n    sidebarPanel( h2(\"Input\"),\n                  sliderInput(\"years\",\"Years\",min=1960,max=2016,value = c(1975,2004)),\n                                 selectInput(\"genre\", label = h3(\"Genres\"), \n                              choices = list(g=g), selected = 1)\n                  \n                ),\n    \n    \n    mainPanel(\n      tabsetPanel(\n        tabPanel(\"Suggested Artists\", \n                   h3(\"Artists\"),\n                  dataTableOutput(\"text1\")\n                          ),\n        tabPanel(\"Tweets\",h3(\"Tweets by Artists\"),\n                 dataTableOutput(\"text2\")),\n        tabPanel(\"Map\",leafletOutput(\"artistmap\",width=\"600px\",height=\"400px\")) \n        )\n    )\n              )\n  ),\n\ntabPanel(\"Artist\",  \n         sidebarLayout(\n           sidebarPanel(\n             textInput(\"text21\", label = h3(\"Artist Name\"), \n                       value = \"\")\n           ),\n           \n           mainPanel(\n             tabsetPanel(\n               tabPanel(\"Artist Info\",\n                        h4(\"Tweets by Artist\"),\n                        dataTableOutput(\"text4\"),\n                        br(),\n                        br(),\n                        h4(\"Recommended Artists\"),\n                        dataTableOutput(\"text6\"),\n                        br(),\n                        br(),\n                        h4(\"Artist location\"),\n                        leafletOutput(\"artistmap2\",width=\"200px\",height=\"200px\"),\n                        br(),\n                        br(),\n                        h4(\"Top Hottt Artist\"),\n                        dataTableOutput(\"text5\"),\n                        br(),\n                        br()\n                        ),\n               tabPanel(\"Songs\", h3(\"Artsist's Songs\"),\n                        dataTableOutput(\"text3\")),\n               tabPanel(\"Wordcloud\",plotOutput(\"cloud\"))\n             \n             )\n                 )\n           )\n           \n         )\n)\n\n)",
+    "created" : 1453969741011.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4262176610",
+    "id" : "B963BC37",
+    "lastKnownWriteTime" : 1453867431,
+    "path" : "C:/Users/mukul.chaware13/Desktop/N/Music API/Music data visualization/ui.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
