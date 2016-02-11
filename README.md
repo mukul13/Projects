@@ -14,6 +14,8 @@ library(shiny)
 runApp("/Path to Shiny weather forecast folder")
 ```
 
+![sample app image](https://github.com/mukul13/Projects/blob/master/Shiny%20Weather%20forecast/sample%20Image.JPG)
+
 ### 3. Basic neural network implementation using Rcpp and RcppArmadillp
 The 'Rcpp' package provides R functions as well as C++ classes which offer a seamless integration of R and C++.RcppArmadillo provides an interface from R to and from Armadillo by utilising the Rcpp R/C++ interface library.
 
