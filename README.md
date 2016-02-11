@@ -13,3 +13,56 @@ api_key="YOUR API KEY"
 library(shiny)
 runApp("/Path to Shiny weather forecast folder")
 ```
+
+### 3. Basic neural network implementation using Rcpp and RcppArmadillp
+The 'Rcpp' package provides R functions as well as C++ classes which offer a seamless integration of R and C++.RcppArmadillo provides an interface from R to and from Armadillo by utilising the Rcpp R/C++ interface library.
+
+```R
+library(Rcpp)
+library(RcppArmadillo)
+source(neural_network_2.cpp)
+
+### to call constructor of neural_network class
+### new(neural_network,num_input_neurons,num_hidden_neurons,num_output_neurons)
+nn=new(neural_network,10,64,1)
+
+### to set learning parameters
+### nn$set_learning_parameters(learning_rate,momentum)
+nn$set_learning_parameters(0.01,0.01)
+
+### to set maximum number of epochs
+### nn$set_max_epochs(max_epochs)
+nn$set_max_epochs(2000)
+````
+
+To train neural network
+
+```R
+### to train neural network, first convert input data into list as follows
+### train=matrix(as.numeric(unlist(data2)),nrow=nrow(data2))
+### train=list(data=training_part,label=matrix(labels))
+### sample code is given in sample.R file
+
+### nn$train_network(train_data_list,gen_data_list,val_data_list)
+nn$train_network(train,gen,val)
+```
+
+To save or load weights
+
+```R
+### to save weights
+nn$save_weights()
+
+### to load weights
+nn$load_weights()
+```
+
+To predict on test datasets
+
+```R
+### first convert test data into matrix
+### test=matrix(as.numeric(unlist(test_data)),nrow=nrow(test_data))
+
+### to predict on test data matrix
+pred=nn$predict(test)
+```
