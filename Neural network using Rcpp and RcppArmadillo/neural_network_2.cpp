@@ -72,7 +72,7 @@ neural_network(long long rinput,long long rhidden,long long routput)
 	learning_rate=0.001;
 	momentum=0.01;
 	use_batch=true;
-	max_epochs=100;
+	max_epochs=1000;
 	desired_accuracy=90;
 	
 	
