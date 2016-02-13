@@ -1,7 +1,15 @@
 # Projects
+ * Music data visualization
+ * Shiny Weather Forecast
+ * Basic neural network implementation using Rcpp and RcppArmadillp
+ * Restricted Boltzmann Machines in R
+
 
 ### 1. Music data visualization
 Shiny App for music data visualization using REchoNest and twitteR
+
+##### TODO
+* to make ui user friendly.(current shiny ui is very messy.)
 
 ### 2. Shiny Weather Forecast
 The above Shiny App is to plot weather forecast data of India. To get weather forecast data, I have written a R package [ROpenWeatherMap](https://github.com/mukul13/ROpenWeatherMap). ROpenWeatherMap is a R wrapper to openweathermap API through which we can access 5 day weather forecast data at any location or city.It includes weather data every 3 hours. I have used googleGvis as a plotting library.
@@ -68,3 +76,40 @@ To predict on test datasets
 ### to predict on test data matrix
 pred=nn$predict(test)
 ```
+#### Resources
+[Neural network introduction](https://takinginitiative.wordpress.com/2008/04/03/basic-neural-network-tutorial-theory/)
+
+##### TODO
+* to optimize C++ code (by removing for loops and using RcppArmadillo's builtin functions for matrix multiplication)
+
+### Restricted Boltzmann Machines in R
+Sample codes are given in sample.R and sample2.R
+
+```R
+### to load RBM code
+library(Rcpp)
+library(RcppArmadillo)
+source("rbm.cpp")
+
+### to initialize RBM object
+new(rbm,num_visible,num_hidden,learning_rate,max_epochs)
+
+### to train RBM
+d$train(train_matrix)
+
+### to predict
+d1=d$run_visible(test_matrix)
+d$run_hidden(d1)
+
+### to save weights
+d$save_weights()
+
+### to load weights
+d$load_weights()
+```
+
+#### Resources
+[RBM Introduction](https://github.com/echen/restricted-boltzmann-machines)
+
+##### TODO
+* add daydream function
