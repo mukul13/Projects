@@ -127,7 +127,7 @@ NumericMatrix run_hidden(arma::mat train_data)
 	return wrap(visible_states);
 }
 
-/*
+
 NumericMatrix daydream(long num)
 {
 	arma::mat samples;
@@ -138,25 +138,28 @@ NumericMatrix daydream(long num)
 
 	for(int i=1;i<num;i++)
 	{
-		visible=samples(i-1,0);
+		arma::mat visible=samples.row(i-1);
+		visible.print("print");
+		arma::mat hidden_activations=visible*weights;
+		hidden_activations.print("hidden_activations");
+		arma::mat hidden_probs=sigmoid_function(hidden_activations);
+		hidden_probs.print("hidden_probs");
+		arma::rowvec temp=arma::randu(nhidden+1);	
+		arma::rowvec hidden_states=get_states(hidden_probs,temp);
 
-		hidden_activations=visible*weights;
-
-		hidden_probs=sigmoid_function(hidden_activations);
-
-		arma::mat temp=arma::randu(nhidden+1);		
-		hidden_states=get_states(hidden_probs,temp);
 		hidden_states(0)=1;
 
-		visible_activations=hidden_states*trans(weights);
+		arma::rowvec visible_activations=hidden_states*trans(weights);
 
-		visible_probs=sigmoid_function(visible_activations);
+		arma::rowvec visible_probs=sigmoid_function(visible_activations);
 		temp=arma::randu(nvisible+1);
-		visible_states=get_states(visible_probs,temp);
-
+		arma::rowvec visible_states=get_states(visible_probs,temp);
+		samples.row(i)=visible_states;		
 	}
+	samples.print("samples");
+return wrap(samples);	
 }
-*/
+
 arma::mat get_states(arma::mat x,arma::mat y)
 {
 	arma::mat out;
@@ -180,6 +183,17 @@ arma::mat sigmoid_function( arma::mat x )
 		return 1/(1+exp(-x));
 }
 
+void save_weights()
+{
+	weights.save("weights.txt", arma::raw_ascii);
+}
+
+void load_weights()
+{
+	weights.load("weights.txt");
+}
+
+
 };
 
 RCPP_MODULE(restricted_boltzmann_machine)
@@ -189,5 +203,8 @@ RCPP_MODULE(restricted_boltzmann_machine)
 	.method("train",&rbm::train)
 	.method("run_visible",&rbm::run_visible)
 	.method("run_hidden",&rbm::run_hidden)
+	.method("daydream",&rbm::daydream)
+	.method("save_weights",&rbm::save_weights)
+	.method("load_weights",&rbm::load_weights)
 	;
 }
