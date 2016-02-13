@@ -76,13 +76,13 @@ To predict on test datasets
 ### to predict on test data matrix
 pred=nn$predict(test)
 ```
-#### Resources
+##### Resources
 [Neural network introduction](https://takinginitiative.wordpress.com/2008/04/03/basic-neural-network-tutorial-theory/)
 
 ##### TODO
 * to optimize C++ code (by removing for loops and using RcppArmadillo's builtin functions for matrix multiplication)
 
-### Restricted Boltzmann Machines in R
+### 4. Restricted Boltzmann Machines in R
 Sample codes are given in sample.R and sample2.R
 
 ```R
@@ -108,7 +108,7 @@ d$save_weights()
 d$load_weights()
 ```
 
-#### Resources
+##### Resources
 [RBM Introduction](https://github.com/echen/restricted-boltzmann-machines)
 
 ##### TODO
