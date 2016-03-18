@@ -115,3 +115,5 @@ d$load_weights()
 * add daydream function
 
 ### 5. Scraping IMDB data and basic recommendation algorithm
+
+Blog Link: [Scraping IMDB data and basic recommendation algorithm](http://justanotherdataenthusiast.blogspot.in/2015/12/basic-recommender-system-using-imdb-data.html)
